@@ -1,46 +1,43 @@
 {
-  "name": "project",
+  "name": "new_project_tailwind",
   "version": "1.0.0",
-  "description": "blank project",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production --open",
-    "start": "webpack-dev-server --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve --open",
+    "build-dev": "webpack",
+    "build-prod": "webpack --node-env=production",
+    "clear": "rd /s /q dist"
   },
-  "keywords": [
-    "webpack",
-    "project_"
-  ],
-  "author": "DzenMan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Archangel2903/new_project_tailwind.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Archangel2903/new_project_tailwind/issues"
+  },
+  "homepage": "https://github.com/Archangel2903/new_project_tailwind#readme",
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "babel-loader": "^8.1.0",
-    "clean-webpack-plugin": "^2.0.1",
-    "css-loader": "^2.1.1",
-    "file-loader": "^3.0.1",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.6.0",
-    "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^1.4.5",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.19",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.8.2",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "bootstrap": "^4.5.2",
-    "intersection-observer": "^0.7.0",
-    "jquery": "^3.5.1",
-    "jquery-ui": "^1.12.1",
-    "nouislider": "^14.6.2",
-    "popper.js": "^1.16.1",
-    "svg-spritemap-webpack-plugin": "^3.5.9",
-    "swiper": "^4.5.1"
+    "@babel/polyfill": "^7.12.1"
   }
 }

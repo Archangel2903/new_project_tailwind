@@ -1,97 +1,75 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserJSPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const fs = require('fs');
-
-const pages = fs
-    .readdirSync(path.resolve(__dirname, 'src'))
-    .filter(fileName => fileName.endsWith('.html'));
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const mode = process.env.NODE_ENV || 'development';
+const devMode = mode === 'development';
+const target = devMode ? 'web' : 'browserslist';
+const devtool = devMode ? 'source-map' : undefined;
 
 module.exports = {
-    entry: {main: "./src/js/index.js"},
-    output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "bundle.[hash].min.js"
+    mode,
+    target,
+    devtool,
+    devServer: {
+        // port: 3000,
+        open: true,
+        hot: true,
     },
+    entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'index.js')],
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
+        filename: "[name].[contenthash].js"
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'src', 'index.html')
+        }),
+        new miniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
+        }),
+    ],
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                test: /\.html$/i,
+                loader: "html-loader",
             },
             {
-                test: /\.scss$/,
+                test: /\.(c|sa|sc)ss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    devMode ? 'style-loader' : miniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
-                ]
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [require('postcss-preset-env')],
+                            }
+                        }
+                    },
+                    'sass-loader',
+                ],
             },
             {
-                test: /\.(png|jpg|svg|gif|ico|webp)$/,
-                exclude: /icons/,
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: "file-loader",
+                    loader: 'babel-loader',
                     options: {
-                        name: '[name].[ext]',
-                        outputPath: 'img'
+                        presets: ['@babel/preset-env']
                     }
                 }
             },
             {
-                test: /\.(woff2?|eot|ttf)/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'fonts'
-                    }
+                test: /\.(ttf|woff2?|eot})$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name].[ext]',
                 }
-            }
+            },
         ]
-    },
-    optimization: {
-        minimizer: [
-            new TerserJSPlugin({}),
-            new OptimizeCSSAssetsPlugin({})
-        ],
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "style.[hash].min.css",
-            chunkFilename: '[id].[hash].css'
-        }),
-        new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /\.optimize\.css$/g,
-            cssProcessor: require('cssnano'),
-            cssProcessorPluginOptions: {
-                preset: ['default', { discardComments: { removeAll: true } }],
-            },
-            canPrint: true
-        }),
-        new HtmlWebpackPlugin({
-            template: 'src/index.html',
-            filename: "index.html",
-            favicon: "./src/favicon.ico"
-        }),
-        ...pages.map((page) => new HtmlWebpackPlugin({
-            template: './src/' + page,
-            filename: page,
-            favicon: './src/favicon.ico',
-            inject: true
-        })),
-        new SVGSpritemapPlugin("src/img/icons/*.svg", {
-            output: {
-                filename: "img/spritemap.svg"
-            }
-        }),
-    ]
-};
+    }
+}
+
+console.log('path', path.resolve(__dirname));
