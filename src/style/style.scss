@@ -1,5 +1,21 @@
+@import "~tailwindcss/base.css";
+@import "~tailwindcss/components.css";
+@import "~tailwindcss/utilities.css";
+
 @import "../libs/normalize.css";
-@import "fonts";
-@import "var";
-@import "reset";
-@import "main";
+@import "partials/fonts";
+
+
+@import 'partials/fonts';
+@import "partials/var";
+
+/* Project style */
+//partials
+//@import 'partials/utilits';
+
+//layout
+//@import 'layout/header';
+//@import 'layout/content';
+//@import 'layout/footer';
+@import "layout/main";
+//@import 'layout/media';

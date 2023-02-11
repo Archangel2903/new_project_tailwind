@@ -6,8 +6,7 @@ $fonts-path: '../fonts/';
   src: url('#{$fonts-path}montserrat-regular-webfont.eot?#iefix') format('embedded-opentype'),
   url('#{$fonts-path}montserrat-regular-webfont.woff2') format('woff2'),
   url('#{$fonts-path}montserrat-regular-webfont.woff') format('woff'),
-  url('#{$fonts-path}montserrat-regular-webfont.ttf') format('truetype'),
-  url('#{$fonts-path}montserrat-regular-webfont.svg#montserratregular') format('svg');
+  url('#{$fonts-path}montserrat-regular-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -19,8 +18,7 @@ $fonts-path: '../fonts/';
   src: url('#{$fonts-path}montserrat-medium-webfont.eot?#iefix') format('embedded-opentype'),
   url('#{$fonts-path}montserrat-medium-webfont.woff2') format('woff2'),
   url('#{$fonts-path}montserrat-medium-webfont.woff') format('woff'),
-  url('#{$fonts-path}montserrat-medium-webfont.ttf') format('truetype'),
-  url('#{$fonts-path}montserrat-medium-webfont.svg#montserratmedium') format('svg');
+  url('#{$fonts-path}montserrat-medium-webfont.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;

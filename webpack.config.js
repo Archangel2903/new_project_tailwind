@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const tailwindcss = require('tailwindcss');
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
@@ -19,7 +20,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        filename: "[name].[contenthash].js"
+        filename: "[name].[contenthash].js",
+        assetModuleFilename: 'assets/[name][ext]'
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -44,7 +46,10 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: [require('postcss-preset-env')],
+                                plugins: [
+                                    'postcss-preset-env',
+                                    tailwindcss
+                                ],
                             }
                         }
                     },
@@ -62,14 +67,19 @@ module.exports = {
                 }
             },
             {
-                test: /\.(ttf|woff2?|eot})$/i,
+                test: /\.(jpe?g|png|webp|svg|gif)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'fonts/[name].[ext]',
+                    filename: 'img/[name][ext]',
+                }
+            },
+            {
+                test: /\.(ttf|woff2?|eot)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]',
                 }
             },
         ]
     }
 }
-
-console.log('path', path.resolve(__dirname));
