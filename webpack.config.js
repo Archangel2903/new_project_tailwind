@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
-const tailwindcss = require('tailwindcss');
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
@@ -47,8 +46,7 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: [
-                                    'postcss-preset-env',
-                                    tailwindcss
+                                    'postcss-preset-env'
                                 ],
                             }
                         }
